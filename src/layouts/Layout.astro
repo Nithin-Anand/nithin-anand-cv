@@ -1,0 +1,67 @@
+---
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/700.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Nithin Anand',
+  description = 'Software Engineer based in London. Personal CV and portfolio.',
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/profile_photo.webp" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/webp" href="/profile_photo.webp" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-term-bg text-term-text font-mono min-h-screen overflow-x-hidden">
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  /* Prose overrides for dark terminal theme */
+  .prose {
+    --tw-prose-body:         #A9C6D4;
+    --tw-prose-headings:     #E0F0FF;
+    --tw-prose-lead:         #A9C6D4;
+    --tw-prose-links:        #4FC3F7;
+    --tw-prose-bold:         #E0F0FF;
+    --tw-prose-counters:     #4FC3F7;
+    --tw-prose-bullets:      #4FC3F7;
+    --tw-prose-hr:           #0D2C3A;
+    --tw-prose-quotes:       #A9C6D4;
+    --tw-prose-quote-borders:#0D2C3A;
+    --tw-prose-captions:     #3D6070;
+    --tw-prose-code:         #4FC3F7;
+    --tw-prose-pre-code:     #A9C6D4;
+    --tw-prose-pre-bg:       #0B1124;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #050912; }
+  ::-webkit-scrollbar-thumb { background: #0D2C3A; }
+  ::-webkit-scrollbar-thumb:hover { background: #4FC3F7; }
+
+  @media print {
+    body { background: white; color: black; }
+  }
+  @media (max-width: 480px) {
+    html { font-size: 14px; }
+  }
+</style>

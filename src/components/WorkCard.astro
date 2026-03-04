@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'works'>;
+}
+const { entry } = Astro.props;
+const { title, org, date, location, tags } = entry.data;
+const { Content } = await entry.render();
+---
+
+<article class="py-6 first:pt-0">
+  <div class="flex items-baseline gap-2 mb-1">
+    <span class="text-term-cyan text-sm flex-shrink-0 select-none">›</span>
+    <h3 class="text-term-bright font-bold text-lg md:text-xl leading-tight">
+      {title}
+      <span class="text-term-muted font-normal">·</span>
+      {org}
+    </h3>
+  </div>
+
+  <p class="text-term-muted text-xs ml-4 mb-3">
+    {date}{location ? ` · ${location}` : ''}
+  </p>
+
+  <div class="ml-4 prose prose-sm max-w-none break-words
+    prose-li:text-term-text prose-p:text-term-text prose-strong:text-term-bright">
+    <Content />
+  </div>
+
+  {tags.length > 0 && (
+    <div class="flex flex-wrap gap-2 mt-4 ml-4">
+      {tags.map((tag) => (
+        <span class="text-xs text-term-muted border border-term-border px-1.5 py-0.5">
+          --{tag}
+        </span>
+      ))}
+    </div>
+  )}
+</article>

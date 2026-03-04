@@ -1,0 +1,16 @@
+---
+interface Props {
+  title: string;
+  label?: string;
+}
+const { title, label } = Astro.props;
+---
+
+<div class="px-4 md:px-8 pt-10 pb-4">
+  <div class="flex items-center gap-3 mb-2">
+    <span class="text-term-cyan text-sm select-none">$</span>
+    <span class="text-term-cyan text-sm font-bold">{title.toLowerCase()}</span>
+    {label && <span class="text-term-muted text-xs">// {label}</span>}
+  </div>
+  <div class="border-t border-term-border"></div>
+</div>

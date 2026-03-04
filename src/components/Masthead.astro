@@ -1,0 +1,97 @@
+---
+---
+
+<header class="px-4 md:px-8 py-10 border-b border-term-border"
+        style="box-shadow: 0 1px 16px 0 rgba(79,195,247,0.05);">
+  <div class="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10">
+
+    <!-- Profile photo with cyan glow -->
+    <div class="w-20 h-20 rounded-full overflow-hidden flex-shrink-0"
+         style="border: 1px solid #0D2C3A; box-shadow: 0 0 16px rgba(79,195,247,0.18);">
+      <img
+        src="/profile_photo.webp"
+        alt="Nithin Anand"
+        class="w-full h-full object-cover"
+        style="filter: grayscale(100%) brightness(0.8) contrast(1.1);"
+      />
+    </div>
+
+    <!-- Terminal text block -->
+    <div class="flex flex-col gap-2">
+
+      <!-- Command prompt -->
+      <div class="flex items-center gap-2 text-sm">
+        <span class="text-term-muted select-none">user@cv:~$</span>
+        <span id="cmd-text" class="text-term-cyan"></span>
+      </div>
+
+      <!-- Name output line with cursor -->
+      <div class="flex items-baseline min-h-[2.5rem] md:min-h-[3.5rem]">
+        <h1
+          id="term-name"
+          class="text-3xl md:text-5xl text-term-bright font-bold tracking-tight leading-none invisible"
+        ></h1>
+        <span
+          id="term-cursor"
+          class="text-term-cyan text-3xl md:text-5xl leading-none font-bold hidden"
+          aria-hidden="true"
+        >█</span>
+      </div>
+
+      <!-- Subtitle -->
+      <p id="term-subtitle" class="text-term-muted text-sm opacity-0 transition-opacity duration-700">
+        // Software Engineer · London, UK
+      </p>
+
+    </div>
+  </div>
+</header>
+
+<script>
+  function sleep(ms: number): Promise<void> {
+    return new Promise(r => setTimeout(r, ms));
+  }
+
+  async function typeText(el: HTMLElement, text: string, baseDelay = 65): Promise<void> {
+    for (const char of text) {
+      el.textContent += char;
+      await sleep(baseDelay + Math.random() * 35);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const cmdEl    = document.getElementById('cmd-text')     as HTMLElement;
+    const nameEl   = document.getElementById('term-name')    as HTMLElement;
+    const cursorEl = document.getElementById('term-cursor')  as HTMLElement;
+    const subEl    = document.getElementById('term-subtitle') as HTMLElement;
+
+    // Type the shell command
+    await typeText(cmdEl, 'whoami', 65);
+    await sleep(380);
+
+    // Reveal name container + cursor
+    nameEl.classList.remove('invisible');
+    cursorEl.classList.remove('hidden');
+
+    // Type the name
+    await typeText(nameEl, 'Nithin Anand', 88);
+
+    // Hide cursor after typing is done
+    cursorEl.classList.add('hidden');
+
+    // Fade in subtitle
+    await sleep(250);
+    subEl.classList.remove('opacity-0');
+    subEl.classList.add('opacity-100');
+  });
+</script>
+
+<style>
+  @keyframes blink {
+    0%, 49%  { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  #term-cursor.blinking {
+    animation: blink 1s step-end infinite;
+  }
+</style>
