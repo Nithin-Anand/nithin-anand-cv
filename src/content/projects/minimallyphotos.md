@@ -7,4 +7,6 @@ status: live
 tags: [Astro, Photography, Blog, Front-end]
 ---
 
-My personal photography site — responsible for content creation, web development and deployment end-to-end.
+My personal photography site — responsible for content creation, architecture and deployment end-to-end.
+
+Built using Astro and Tailwind, it uses Cloudinary integration for image optimisation and content delivery speed.
